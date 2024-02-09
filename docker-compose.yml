@@ -1,0 +1,24 @@
+version: '1.0'
+services:
+  devsu-clients-api:
+    build:
+      dockerfile: devsu-clients-api/Dockerfile
+    image: devsu-clients-api:1.0.0
+    ports:
+      - 8089:8080
+    networks:
+      - spring-cloud-network
+  devsu-accounts-api:
+    container_name: devsu_accounts_api
+    build:
+      dockerfile: devsu-accounts-api/Dockerfile
+    image: devsu-accounts-api:1.0.0
+    ports:
+      - 8090:8080
+    networks:
+      - spring-cloud-network
+    environment:
+      CLIENT_API: devsu-clients-api
+networks:
+  spring-cloud-network:
+    driver: bridge
